@@ -2,9 +2,10 @@ version: '3.9'
 services:
   mysql:
     image: mysql:latest
-    container_name: mysql_container870
+    container_name: mysql_container
     environment:
-      MYSQL_DATABASE: orderinv
+      MYSQL_DATABASE: sanyuktadb
+      MYSQL_USER: admin
       MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
@@ -12,8 +13,7 @@ services:
       - ola_network
 
   springboot:
-    build:
-      context: .  # Use the current directory as the build context
+    build: .
     container_name: OI_service
     ports:
       - "8089:8089"
@@ -22,9 +22,9 @@ services:
     networks:
       - ola_network
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/orderinv
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_URL: jdbc:postgresql://sanyukta-db-rds.cmdlxfdnrfju.ap-south-1.rds.amazonaws.com:5432/sanyukta_db
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: Sanyukta
 
 networks:
   ola_network:
